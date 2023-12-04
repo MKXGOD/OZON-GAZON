@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Client
+  - Mail
+  - Shelf
   layers:
   - Default
   - TransparentFX

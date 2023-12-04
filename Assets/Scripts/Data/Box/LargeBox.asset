@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb78e16555ccfe47ac9eaeaded97fa3, type: 3}
+  m_Name: LargeBox
+  m_EditorClassIdentifier: 
+  <Size>k__BackingField: 3
+  <Price>k__BackingField: 150
+  <PrefabItem>k__BackingField: {fileID: 2556862161008225379, guid: 909b9265b38c9db4e9036f9485ef63ff,
+    type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 6b658299eb9d7854f8edf59df8d0dc22,
+    type: 3}
