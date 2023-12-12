@@ -45,7 +45,10 @@ public class InventoryController : MonoBehaviour
     }
     private void HandleItemActionRequest(int itemIndex)
     {
-        Debug.Log("ChooseItem");
+        InventoryItem inventoryItem = _inventoryData.GetItemAt(itemIndex);
+        if (inventoryItem.isEmpty)
+            return;
+
     }
     private void OnTriggerEnter(Collider other)
     {
