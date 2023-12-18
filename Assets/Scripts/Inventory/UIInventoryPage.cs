@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace InventoryUI
+namespace OldInventoryUI
 {
     public class UIInventoryPage : MonoBehaviour
     {

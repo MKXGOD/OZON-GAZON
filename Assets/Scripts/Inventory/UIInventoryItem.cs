@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace InventoryUI
+namespace OldInventoryUI
 {
     public class UIInventoryItem : MonoBehaviour, IPointerClickHandler
     {
