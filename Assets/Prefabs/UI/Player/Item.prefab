@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1367237510761540979}
   - component: {fileID: 5336596714174365929}
   - component: {fileID: 4106105144419045062}
-  - component: {fileID: 2201549140675036279}
+  - component: {fileID: -2543876698497816480}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -33,6 +33,7 @@ RectTransform:
   m_Children:
   - {fileID: 5472511426035761680}
   m_Father: {fileID: 0}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -77,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2201549140675036279
+--- !u!114 &-2543876698497816480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,7 +87,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 850394145126089389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad18fbaac44b5a478325c8550174904, type: 3}
+  m_Script: {fileID: 11500000, guid: 06664cd666897934bbc39623485558e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _itemImage: {fileID: 4106105144419045062}
@@ -122,6 +123,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1367237510761540979}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}

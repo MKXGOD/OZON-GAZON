@@ -63,9 +63,6 @@ namespace OldInventory
         {
             if (other.tag == "Player")
             {
-
-                //_pickupSystem = other.gameObject.GetComponent<PickUpSystem>();
-                //_pickupSystem.InitialPickupSystem(_inventoryData);
                 if (_inventoryPage.isActiveAndEnabled == false)
                 {
                     foreach (var item in _inventoryData.GetCurrentInventoryState())

@@ -1,19 +1,18 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using OldInventory;
 
 namespace MyInventory
 {
     public abstract class BaseInventory : MonoBehaviour
     {
-        [SerializeField] private InventoryPage _inventoryPage;
-        [SerializeField] private List<Item> _items; //
-        public int ItemsQuantity => _items.Count;
+        [SerializeField] protected InventoryPage _inventoryPage;
+        [SerializeField] protected List<Item> _items;
+        public List<Item> Items => _items;
         [field: SerializeField] public int Size { get; private set; }
 
         public event Action<Dictionary<int, Item>> OnInventoryUpdated;
-        public List<Item> InitialItems = new List<Item>(); //
+        public List<Item> InitialItems = new List<Item>();
 
         protected void Awake()
         {
@@ -46,6 +45,10 @@ namespace MyInventory
                 }
             }
         }
+        public void SwapItem(Item item)
+        {
+            _items[0] = item;
+        }
         public void AddItem(Item item)
         {
             AddItem(item.ItemSO, item.ItemCode);
@@ -58,6 +61,13 @@ namespace MyInventory
         public Item GetItemAt(int index)
         {
             return _items[index];
+        }
+        public void SwapItems(int index1, int index2)
+        {
+            Item item1 = _items[index1];
+            _items[index1] = _items[index2];
+            _items[index2] = item1;
+            InformAboutChange();
         }
         public Dictionary<int, Item> GetCurrentInventoryState()
         {

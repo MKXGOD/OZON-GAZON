@@ -1,5 +1,6 @@
 using UnityEngine;
 using MyInventory;
+using OldInventoryUI;
 
 public class ShelfInventory : BaseInventory
 {
@@ -17,13 +18,37 @@ public class ShelfInventory : BaseInventory
 
     public override void ShareItem(int itemIndex)
     {
-        Debug.Log(GetCurrentInventoryState());
-        if (_playerInventory.ItemsQuantity > _playerInventory.Size)
+        var item = _playerInventory.GetItemAt(0);
+        if (!item.isEmpty)
             return;
 
-        _playerInventory.AddItem(GetItemAt(itemIndex));
-        RemoveItem(itemIndex);
+        Item item1 = _items[itemIndex];
+        _playerInventory.AddItem(item1);
+        _items[itemIndex] = Item.GetEmptyItem();
+
         InformAboutChange();
-        Debug.Log(GetCurrentInventoryState());
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (_inventoryPage.isActiveAndEnabled == false)
+            {
+                foreach (var item in GetCurrentInventoryState())
+                {
+                    _inventoryPage.UpdateData(item.Key, item.Value.ItemSO.ItemImage, item.Value.ItemCode);
+                }
+            }
+            _inventoryPage.ShowHideInventory(true);
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            _inventoryPage.ShowHideInventory(false);
+            _inventoryPage.ResetAllItems();
+        }
     }
 }

@@ -20,11 +20,13 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public void ResetData()
     {
         _itemImage.gameObject.SetActive(false);
+        _itemCodeText.gameObject.SetActive(false);
         _isEmpty = true;
     }
     public void SetData(Sprite itemImage, string itemCode)
     {
         _itemImage.gameObject.SetActive(true);
+        _itemCodeText.gameObject.SetActive(true);
         _itemImage.sprite = itemImage;
         _itemCodeText.text = itemCode;
         _isEmpty = false;

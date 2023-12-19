@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4189743291995712978}
   - component: {fileID: 2121967514792201650}
   - component: {fileID: 2375173802057390175}
-  - component: {fileID: 5793471443340369595}
+  - component: {fileID: 7809925986050117518}
   m_Layer: 5
   m_Name: ItemElement
   m_TagString: Untagged
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -325,12 +325,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 7
-  m_Spacing: 0
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 15
+  m_ChildAlignment: 4
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5793471443340369595
+--- !u!114 &7809925986050117518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,9 +347,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5193236130514624643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad18fbaac44b5a478325c8550174904, type: 3}
+  m_Script: {fileID: 11500000, guid: 06664cd666897934bbc39623485558e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _itemImage: {fileID: 3146967902879411732}
-  _borderImage: {fileID: 0}
   _itemCodeText: {fileID: 2351518895783466758}
