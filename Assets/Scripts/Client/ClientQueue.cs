@@ -3,30 +3,77 @@ using UnityEngine;
 
 public class ClientQueue : MonoBehaviour
 {
-    [SerializeField] private DeliveryPackage _deliveryPackage;
+    [SerializeField] private Client _client;
+    [SerializeField] private Transform _destination;
+    [SerializeField] private Transform _leaveRoom;
 
-    [SerializeField] private Client _clientPefab;
+    private Queue<GameObject> _queuePeople = new Queue<GameObject>();
+    private GameObject _lastIn;
+    private GameObject _lastOut;
 
-    [SerializeField] private Transform _goal;
+    public Queue<Client> _queueClient = new Queue<Client>();
 
-    [field: SerializeField] public Queue<Client> _clientQueue = new Queue<Client>();
-
-    private void Start()
+    private void Update()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            Client client = Instantiate(_clientPefab);
-            _clientQueue.Enqueue(client);
-            Go();
-        }
+        if (Input.GetKeyDown(KeyCode.Z))
+            AddQueueCLient();
+        else if (Input.GetKeyDown(KeyCode.X))
+            Leave();
+       // else if (Input.GetKeyDown(KeyCode.C))
+            //ckupOrder(_queueClient[0]);
     }
+    /*private void Spawn()
+     {
+         var people = Instantiate(_client);
+         people.transform.position = new Vector3(0, 0, 0);
 
-    private void Go()
-    { 
-        if (_clientQueue.Count > 0) 
+         if (_queuePeople.Count == 0)
+         {
+             people.Agent.stoppingDistance = 0;
+             people.Agent.SetDestination(_destination.position);
+         }
+         else
+         {
+             people.Agent.stoppingDistance = 1.5f;
+             people.Agent.SetDestination(_lastIn.transform.position);
+         }
+
+         _queuePeople.Enqueue(people.gameObject);
+         _lastIn = people.gameObject;
+     }
+     private void LeftQueue()
+     {
+         Destroy(_queuePeople.Dequeue());
+     }*/
+
+    private void AddQueueCLient()
+    {
+        var client = Instantiate(_client);
+        client.transform.position = Vector3.zero;
+        _queueClient.Enqueue(client);
+        
+        
+        
+        /*if (_queueClient.Count == 1)
         {
-            var client = _clientQueue.Peek();
-            client.GoTo(_goal);
+            client.Agent.stoppingDistance = 0;
+            client.Agent.SetDestination(_destination.position);
+        }
+        else if (_queueClient.Count > 1)
+        {
+            client.Agent.stoppingDistance = 1.5f;
+            client.Agent.SetDestination(_lastIn.transform.position);
+        }
+
+        _lastIn = client.gameObject;*/
+    }
+    private void Leave()
+    {
+        if (_queueClient.Count != 0)
+        {
+            _queueClient[0].Agent.SetDestination(_leaveRoom.position);
+            _queueClient.RemoveAt(0);
+            _queueClient[0].Agent.SetDestination(_destination.position);
         }
     }
 }
