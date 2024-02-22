@@ -3,58 +3,70 @@ using UnityEngine;
 
 public class ClientQueue : MonoBehaviour
 {
+    [SerializeField] private DeliveryPackage _deliveryPackage;
     [SerializeField] private Client _clientPrefab;
-    [SerializeField] private Transform _LeaveRoomPosition;
-    [SerializeField] private Transform _deliveryPlace;
 
-    private Transform _spawnPosition;
-    
+    [SerializeField] private Transform _spawnPosition;
+    [SerializeField] private Transform _placeIssue;
+
     private List<Client> _clients = new List<Client>();
 
-    private Client _firstOut;
+    
+
+    private Client Head;
+    private Client Lox;
+
+    private void Awake()
+    {
+        _deliveryPackage.NotifyOnDelivered += SpawnClient;
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-            AddInQueue();
-
-        if (Input.GetKeyDown(KeyCode.L))
-            LeaveRoom();
-
-            if (_clients.Count > 1)
-            MoveQueue();
+        MoveQueue();
     }
-    public void AddInQueue()
+    private void SpawnClient(int itemCode)
     {
-        var cylinder = Instantiate(_clientPrefab);
-        if (_clients.Count == 0)
-        {
-            cylinder.Agent.stoppingDistance = 1;
-            cylinder.Agent.SetDestination(_deliveryPlace.position);
-            _firstOut = cylinder;
-        }
-        else cylinder.Agent.stoppingDistance = 2;
-        
-        _clients.Add(cylinder);
-        
+        Client client = Instantiate(_clientPrefab);
+        client.SetCode(itemCode);
+        client.transform.position = _spawnPosition.position;
+        AddInQueue(client);
     }
-    public void MoveQueue()
+    private void AddInQueue(Client client)
+    {
+        _clients.Add(client);
+        if (_clients.Count == 1)
+        {
+            SetHead(client);
+        }
+        else client.Agent.stoppingDistance = 2;
+
+        client.OnGetPackage += LeaveRoom;
+
+    }
+    private void MoveQueue()
     {
         for (int i = 1; i < _clients.Count; i++)
         {
             _clients[i].Agent.SetDestination(_clients[i-1].transform.position);
         }
     }
-
-    public void LeaveRoom()
+    private void LeaveRoom()
     {
-        _clients.Remove(_firstOut);
-        _firstOut.Agent.SetDestination(_LeaveRoomPosition.position);
-
+        _clients.Remove(Head);
+        Lox = Head;
+        Head = null;
         if (_clients.Count > 0)
-        {
-            _clients[0].Agent.stoppingDistance = 0;
-            _clients[0].Agent.SetDestination(_deliveryPlace.position);
-            _firstOut = _clients[0];
-        }
+            SetHead(_clients[0]);
+        Lox.Agent.SetDestination(_spawnPosition.position);
+        Lox.OnGetPackage -= LeaveRoom;
+    }
+    public void SetHead(Client client)
+    {
+        if (Head != null)
+            return;
+        Head = client;
+        Head.Agent.stoppingDistance = 0.2f;
+        Head.Agent.SetDestination(_placeIssue.position);
+        
     }
 }

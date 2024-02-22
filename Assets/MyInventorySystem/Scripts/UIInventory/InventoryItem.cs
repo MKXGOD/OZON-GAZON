@@ -23,12 +23,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         _itemCodeText.gameObject.SetActive(false);
         _isEmpty = true;
     }
-    public void SetData(Sprite itemImage, string itemCode)
+    public void SetData(Sprite itemImage, int itemCode)
     {
         _itemImage.gameObject.SetActive(true);
         _itemCodeText.gameObject.SetActive(true);
         _itemImage.sprite = itemImage;
-        _itemCodeText.text = itemCode;
+        _itemCodeText.text = itemCode.ToString();
         _isEmpty = false;
     }
     public void OnPointerClick(PointerEventData pointerData)

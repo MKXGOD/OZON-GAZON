@@ -1,16 +1,21 @@
 using MyInventory;
-using UnityEngine;
-
 public class PlayerInventory : BaseInventory
 {
-    [SerializeField] private ShelfInventory _shelfInventory;
-
-    public override void ShareItem(int itemIndex)
+    private ShelfInventory _shelfInventory;
+    public override void ShareItem(Item item)
     {
-        Item item1 = _items[itemIndex];
-        _items[itemIndex] = Item.GetEmptyItem();
-        _shelfInventory.AddItem(item1);
-
-        InformAboutChange();
+        if (_shelfInventory != null)
+        {
+            _shelfInventory.AddItem(item);
+            
+        }
+    }
+    public void GetShelfInventory(ShelfInventory shelfInventory)
+    {
+        _shelfInventory = shelfInventory;
+    }
+    public Item GetItem()
+    { 
+        return _items[0];
     }
 }

@@ -15,7 +15,8 @@ public class PlayerMovement
         var characterVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _speed;
 
         characterVelocity = _player.transform.InverseTransformDirection(characterVelocity);
+        characterVelocity = Vector3.ClampMagnitude(characterVelocity, _speed);
 
-        return characterVelocity;
+        return characterVelocity * Time.deltaTime;
     }
 }

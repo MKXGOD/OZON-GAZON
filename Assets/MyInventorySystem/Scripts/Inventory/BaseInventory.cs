@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyInventory
 {
@@ -8,11 +9,9 @@ namespace MyInventory
     {
         [SerializeField] protected InventoryPage _inventoryPage;
         [SerializeField] protected List<Item> _items;
-        public List<Item> Items => _items;
         [field: SerializeField] public int Size { get; private set; }
 
         public event Action<Dictionary<int, Item>> OnInventoryUpdated;
-        public List<Item> InitialItems = new List<Item>();
 
         protected void Awake()
         {
@@ -30,11 +29,11 @@ namespace MyInventory
             }
         }
 
-        private void AddItem(ItemSO item, string itemCode)
+        private void AddItem(ItemSO item, int itemCode)
         {
             for (int i = 0; i < _items.Count; i++)
             {
-                if (_items[i].isEmpty)
+                if (_items[i].IsEmpty)
                 {
                     _items[i] = new Item
                     {
@@ -45,6 +44,10 @@ namespace MyInventory
                 }
             }
         }
+        public bool InventoryIsFull()
+        {
+            return _items.All(s => s.IsEmpty == false);
+        }
         public void SwapItem(Item item)
         {
             _items[0] = item;
@@ -54,20 +57,10 @@ namespace MyInventory
             AddItem(item.ItemSO, item.ItemCode);
             InformAboutChange();
         }
-        public void RemoveItem(int index)
-        {
-            _items.RemoveAt(index); 
-        }
-        public Item GetItemAt(int index)
+        public abstract void ShareItem(Item item);
+        private Item GetItemAt(int index)
         {
             return _items[index];
-        }
-        public void SwapItems(int index1, int index2)
-        {
-            Item item1 = _items[index1];
-            _items[index1] = _items[index2];
-            _items[index2] = item1;
-            InformAboutChange();
         }
         public Dictionary<int, Item> GetCurrentInventoryState()
         {
@@ -75,7 +68,7 @@ namespace MyInventory
 
             for (int i = 0; i < _items.Count; i++)
             {
-                if (_items[i].isEmpty)
+                if (_items[i].IsEmpty)
                     continue;
 
                 returnValue[i] = _items[i];
@@ -98,12 +91,6 @@ namespace MyInventory
         {
             InitializeInventory();
             OnInventoryUpdated += UpdateInventoryUI;
-            foreach (Item item in InitialItems)
-            {
-                if (item.isEmpty)
-                    continue;
-                AddItem(item);
-            }
         }
         private void UpdateInventoryUI(Dictionary<int, Item> inventoryState)
         {
@@ -116,11 +103,17 @@ namespace MyInventory
         private void HandleItemActionRequest(int itemIndex)
         {
             Item inventoryItem = GetItemAt(itemIndex);
-            if (inventoryItem.isEmpty)
+            if (inventoryItem.IsEmpty)
                 return;
-            ShareItem(itemIndex);
-            
+            ShareItem(inventoryItem);
+            RemoveItem(itemIndex);
+
         }
-        public abstract void ShareItem(int itemIndex);
+
+        private void RemoveItem(int itemIndex)
+        {
+            _items[itemIndex] = Item.GetEmptyItem();
+            InformAboutChange();
+        }
     }
 }

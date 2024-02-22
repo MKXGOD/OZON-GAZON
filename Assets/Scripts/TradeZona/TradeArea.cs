@@ -3,32 +3,50 @@ using UnityEngine;
 
 public class TradeArea : MonoBehaviour
 {
-    private int _itemCode;
+
     private List<Collider> _colliders = new List<Collider>();
 
     private void OnTriggerEnter(Collider other)
     {
-        _colliders.Add(other);
-        if (other.tag == "Client")
-            Debug.Log("Get client code");
+        if (_colliders.Count <= 2)
+            _colliders.Add(other);
 
-        if (_colliders.Count > 1)
-            Debug.Log($"Show code: {_itemCode}");
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Mail")
+        if (_colliders.Count == 2)
         {
-            var mail = other.gameObject.GetComponent<ItemObject>();
+            PackageTransfer();
+        }
+        else Debug.Log("Get client code");
+    }
+    private void PackageTransfer()
+    {
+        Client client;
+        PlayerInventory playerInventory;
 
-            if (mail.GetCode() == _itemCode)
-                Debug.Log("Take mail");
+        if (_colliders[0].tag == "Player")
+        {
+            playerInventory = _colliders[0].GetComponent<PlayerInventory>();
+            client = _colliders[1].GetComponent<Client>();
+        }
+        else
+        {
+            client = _colliders[0].GetComponent<Client>();
+            playerInventory = _colliders[1].GetComponent<PlayerInventory>();
+        }
+
+        if (playerInventory.GetItem().IsEmpty == true)
+        {
+            Debug.Log($"Show code: {client.DeliveryCode}");
+        }
+        else
+        {
+            if (client.GetPackage(playerInventory.GetItem().ItemCode))
+                Debug.Log("Thank you");
             else Debug.Log("It is not my mail");
         }
-         
     }
     private void OnTriggerExit(Collider other)
     {
-      _colliders.Remove(other);
+        if (_colliders.Count != 0)
+            _colliders.Remove(other);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb78e16555ccfe47ac9eaeaded97fa3, type: 3}
   m_Name: LargeBox
   m_EditorClassIdentifier: 
-  <Size>k__BackingField: 3
+  <Size>k__BackingField: 1
   <Price>k__BackingField: 150
   <PrefabItem>k__BackingField: {fileID: 2556862161008225379, guid: 909b9265b38c9db4e9036f9485ef63ff,
     type: 3}

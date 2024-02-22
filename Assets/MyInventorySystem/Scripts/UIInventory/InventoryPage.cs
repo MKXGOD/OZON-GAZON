@@ -10,10 +10,6 @@ public class InventoryPage : MonoBehaviour
     private List<InventoryItem> _inventoryItemsList = new List<InventoryItem>();
 
     public event Action<int> OnItemActionRequested;
-    private void Awake()
-    {
-        //ShowHideInventory(false);
-    }
     public void InitializeInventoryUI(int inventorySize)
     {
         for (int i = 0; i < inventorySize; i++)
@@ -26,7 +22,7 @@ public class InventoryPage : MonoBehaviour
         }
     }
 
-    public void UpdateData(int itemIndex, Sprite itemImage, string itemCode)
+    public void UpdateData(int itemIndex, Sprite itemImage, int itemCode)
     {
         if (_inventoryItemsList.Count > itemIndex)
         {

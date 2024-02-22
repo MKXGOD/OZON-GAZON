@@ -1,44 +1,25 @@
 using UnityEngine;
 using MyInventory;
-using OldInventoryUI;
 
 public class ShelfInventory : BaseInventory
 {
     [SerializeField] private DeliveryPackage _deliveryPackage;
-    [SerializeField] private PlayerInventory _playerInventory;
+    private PlayerInventory _playerInventory;
 
-    private void Start()
+    public override void ShareItem(Item item)
     {
-        Delivery();
-    }
-    private void Delivery()
-    {
-        AddItem(_deliveryPackage.CreateItem());
+        if (_playerInventory != null)
+        { 
+            _playerInventory.AddItem(item);
+        }
     }
 
-    public override void ShareItem(int itemIndex)
-    {
-        var item = _playerInventory.GetItemAt(0);
-        if (!item.isEmpty)
-            return;
-
-        Item item1 = _items[itemIndex];
-        _playerInventory.AddItem(item1);
-        _items[itemIndex] = Item.GetEmptyItem();
-
-        InformAboutChange();
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            if (_inventoryPage.isActiveAndEnabled == false)
-            {
-                foreach (var item in GetCurrentInventoryState())
-                {
-                    _inventoryPage.UpdateData(item.Key, item.Value.ItemSO.ItemImage, item.Value.ItemCode);
-                }
-            }
+            _playerInventory = other.GetComponent<PlayerInventory>();
+            _playerInventory.GetShelfInventory(this);
             _inventoryPage.ShowHideInventory(true);
 
         }
@@ -47,8 +28,9 @@ public class ShelfInventory : BaseInventory
     {
         if (other.tag == "Player")
         {
+            _playerInventory.GetShelfInventory(null);
+            _playerInventory = null;
             _inventoryPage.ShowHideInventory(false);
-            _inventoryPage.ResetAllItems();
         }
     }
 }
